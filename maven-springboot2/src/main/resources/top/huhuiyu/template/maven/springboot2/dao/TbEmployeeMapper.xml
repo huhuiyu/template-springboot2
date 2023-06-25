@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+				PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.huhuiyu.template.maven.springboot2.dao.TbEmployeeMapper">
+
+	<select id="queryAll" parameterType="TbEmployee">
+		select e.*,d.dept_name 'dept.deptName'
+		from tb_employee e
+		inner join tb_dept d
+		on e.dept_id = d.dept_id
+		<where>
+			<if test="deptId != null and deptId > 0">
+				and e.dept_id = #{deptId}
+			</if>
+			<if test="employeeName != null and employeeName.trim() != ''.toString()">
+				and e.employee_name like #{employeeName}
+			</if>
+			<if test="phone != null and phone.trim() != ''.toString()">
+				and e.phone like #{phone}
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="employeeDeptMap" type="TbEmployee">
+		<id property="employeeId" column="employee_id"></id>
+		<result property="deptId" column="dept_id"></result>
+		<result property="employeeName" column="employee_name"></result>
+		<result property="phone" column="phone"></result>
+		<result property="lastupdate" column="lastupdate"></result>
+		<association property="dept" javaType="top.huhuiyu.template.maven.springboot2.entity.TbDept">
+			<result property="deptName" column="dept_name"></result>
+		</association>
+	</resultMap>
+
+	<select id="queryAllAssociation" parameterType="TbEmployee" resultMap="employeeDeptMap">
+		select e.*,d.dept_name
+		from tb_employee e
+		inner join tb_dept d
+		on e.dept_id = d.dept_id
+		<where>
+			<if test="deptId != null and deptId > 0">
+				and e.dept_id = #{deptId}
+			</if>
+			<if test="employeeName != null and employeeName.trim() != ''.toString()">
+				and e.employee_name like #{employeeName}
+			</if>
+			<if test="phone != null and phone.trim() != ''.toString()">
+				and e.phone like #{phone}
+			</if>
+		</where>
+	</select>
+
+	<select id="queryEmployeeByDeptId" resultType="TbEmployee">
+		select * from tb_employee
+		where dept_id = #{deptId}
+	</select>
+
+
+</mapper>

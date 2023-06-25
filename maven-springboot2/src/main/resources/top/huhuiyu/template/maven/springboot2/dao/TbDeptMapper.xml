@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+				PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.huhuiyu.template.maven.springboot2.dao.TbDeptMapper">
+	<select id="queryAll" parameterType="TbDept">
+		select * from tb_dept
+		<where>
+			<if test="deptName != null and deptName.trim() != ''.toString()">
+				and dept_name like #{deptName}
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="deptAndEmployeeMap" type="DeptAndEmployeeList">
+		<collection property="employees" javaType="java.util.ArrayList" ofType="DeptAndEmployeeList"
+								select="top.huhuiyu.template.maven.springboot2.dao.TbEmployeeMapper.queryEmployeeByDeptId"
+								column="{deptId=dept_Id}"/>
+	</resultMap>
+
+	<select id="queryDeptAndEmployeeList" parameterType="TbDept" resultMap="deptAndEmployeeMap">
+		select * from tb_dept
+		where dept_id = #{deptId}
+	</select>
+
+	<insert id="add" parameterType="TbDept" keyProperty="deptId" useGeneratedKeys="true">
+		insert into tb_dept(dept_name,dept_info) values(#{deptName},#{deptInfo})
+	</insert>
+
+	<select id="queryLast" resultType="TbDept">
+		select * from tb_dept
+		where dept_id = (select max(dept_id) from tb_dept)
+	</select>
+
+	<update id="update" parameterType="TbDept">
+		update tb_dept set dept_name=#{deptName},dept_info=#{deptInfo}
+		where dept_id = #{deptId}
+	</update>
+
+	<delete id="delete" parameterType="TbDept">
+		delete from tb_dept where dept_id = #{deptId}
+	</delete>
+
+</mapper>
