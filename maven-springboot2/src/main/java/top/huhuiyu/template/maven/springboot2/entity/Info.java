@@ -1,11 +1,20 @@
 package top.huhuiyu.template.maven.springboot2.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@ApiModel(value = "首页应答", description = "首页应答信息对象")
 public class Info implements Serializable {
   private static final long serialVersionUID = 1L;
+  @ApiModelProperty(value = "当前时间", example = "1687680479856")
+  @ApiParam(hidden = true)
   private Date now;
+  @ApiModelProperty(value = "echo信息", example = "黑暗骑士")
+  @ApiParam(hidden = true)
   private String message;
 
   public Info() {
