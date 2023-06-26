@@ -1,8 +1,10 @@
 package top.huhuiyu.template.maven.springboot2.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import top.huhuiyu.template.maven.springboot2.converter.*;
 
 
 @Configuration
@@ -19,5 +21,17 @@ public class MyWebConfig implements WebMvcConfigurer {
     // 那么应该允许的域名应该配置成huhuiyu.top，或者相对危险的*.huhuiyu.top
     // allowCredentials表示是否需要开启认证
     registry.addMapping("/**").allowedMethods("*").allowedOrigins("*").allowCredentials(false);
+  }
+
+  @Override
+  public void addFormatters(FormatterRegistry registry) {
+    // 数据转换器配置
+    registry.addConverter(new DateConverter());
+    registry.addConverter(new IntegerConverter());
+    registry.addConverter(new LongConverter());
+    registry.addConverter(new DoubleConverter());
+    registry.addConverter(new BigDecimalConverter());
+
+    WebMvcConfigurer.super.addFormatters(registry);
   }
 }
