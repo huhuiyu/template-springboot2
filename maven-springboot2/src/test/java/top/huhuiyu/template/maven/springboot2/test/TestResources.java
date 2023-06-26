@@ -1,6 +1,8 @@
 package top.huhuiyu.template.maven.springboot2.test;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
@@ -8,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestResources {
 
+  private Logger logger = LoggerFactory.getLogger(TestResources.class);
   public static final String TEST_FILE = "/test.data";
 
   @Test
@@ -19,7 +22,6 @@ public class TestResources {
     }
     scanner.close();
     assertEquals(sb.toString(), "黑暗骑士");
-    // assertEquals(sb.toString(),"黑暗骑士");
-    System.out.println("测试完成");
+    logger.info("测试完成");
   }
 }

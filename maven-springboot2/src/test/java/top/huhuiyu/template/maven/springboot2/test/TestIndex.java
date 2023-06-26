@@ -32,5 +32,7 @@ public class TestIndex {
     ResultMatcher result = content.string("欢迎：黑暗骑士");
     // 与实际返回内容进行比对
     action.andExpect(result);
+
+    logger.info("测试完成");
   }
 }

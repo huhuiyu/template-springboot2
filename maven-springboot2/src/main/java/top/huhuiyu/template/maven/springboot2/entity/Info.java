@@ -17,12 +17,17 @@ public class Info implements Serializable {
   @ApiParam(hidden = true)
   private String message;
 
+  @ApiModelProperty(value = "ip信息", example = "127.0.0.1")
+  @ApiParam(hidden = true)
+  private String ip;
+
   public Info() {
   }
 
-  public Info(Date now, String message) {
+  public Info(Date now, String message, String ip) {
     this.now = now;
     this.message = message;
+    this.ip = ip;
   }
 
   public Date getNow() {
@@ -39,5 +44,13 @@ public class Info implements Serializable {
 
   public void setMessage(String message) {
     this.message = message;
+  }
+
+  public String getIp() {
+    return ip;
+  }
+
+  public void setIp(String ip) {
+    this.ip = ip;
   }
 }

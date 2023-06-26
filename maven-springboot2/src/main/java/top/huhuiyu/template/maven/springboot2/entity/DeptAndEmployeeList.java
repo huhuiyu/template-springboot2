@@ -5,7 +5,7 @@ import java.util.List;
 
 public class DeptAndEmployeeList extends TbDept implements Serializable {
   private static final long serialVersionUID = 1L;
-  List<TbEmployee> employees;
+  private List<TbEmployee> employees;
 
   public DeptAndEmployeeList() {
   }

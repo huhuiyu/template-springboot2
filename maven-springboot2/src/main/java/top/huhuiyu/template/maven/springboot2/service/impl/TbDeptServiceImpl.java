@@ -13,6 +13,11 @@ import top.huhuiyu.template.maven.springboot2.service.TbDeptService;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 部门服务实现
+ *
+ * @author 胡辉煜
+ */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class TbDeptServiceImpl implements TbDeptService {
@@ -52,8 +57,8 @@ public class TbDeptServiceImpl implements TbDeptService {
   }
 
   @Override
-  public BaseResult<TbDept> delete(TbDept dept) throws Exception {
-    BaseResult<TbDept> result = new BaseResult<>();
+  public BaseResult<String> delete(TbDept dept) throws Exception {
+    BaseResult<String> result = new BaseResult<>();
     logger.debug("参数：{}", dept);
     int count = tbDeptMapper.delete(dept);
     result.setSuccess(count == 1);
