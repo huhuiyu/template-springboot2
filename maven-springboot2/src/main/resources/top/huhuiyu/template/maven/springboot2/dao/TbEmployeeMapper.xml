@@ -23,13 +23,13 @@
 	</select>
 
 	<resultMap id="employeeDeptMap" type="TbEmployee">
-		<id property="employeeId" column="employee_id"></id>
-		<result property="deptId" column="dept_id"></result>
-		<result property="employeeName" column="employee_name"></result>
-		<result property="phone" column="phone"></result>
-		<result property="lastupdate" column="lastupdate"></result>
+		<id property="employeeId" column="employee_id"/>
+		<result property="deptId" column="dept_id"/>
+		<result property="employeeName" column="employee_name"/>
+		<result property="phone" column="phone"/>
+		<result property="lastupdate" column="lastupdate"/>
 		<association property="dept" javaType="top.huhuiyu.template.maven.springboot2.entity.TbDept">
-			<result property="deptName" column="dept_name"></result>
+			<result property="deptName" column="dept_name"/>
 		</association>
 	</resultMap>
 

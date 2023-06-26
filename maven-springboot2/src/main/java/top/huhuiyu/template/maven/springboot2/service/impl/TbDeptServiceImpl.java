@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import top.huhuiyu.template.maven.springboot2.base.BaseResult;
 import top.huhuiyu.template.maven.springboot2.dao.TbDeptMapper;
+import top.huhuiyu.template.maven.springboot2.entity.DeptAndEmployeeList;
 import top.huhuiyu.template.maven.springboot2.entity.TbDept;
 import top.huhuiyu.template.maven.springboot2.service.TbDeptService;
 
@@ -66,4 +67,28 @@ public class TbDeptServiceImpl implements TbDeptService {
     result.setMessage(result.isSuccess() ? "删除部门成功" : "删除部门失败");
     return result;
   }
+
+  @Override
+  public BaseResult<String> modify(TbDept dept) throws Exception {
+    BaseResult<String> result = new BaseResult<>();
+    logger.debug("参数：{}", dept);
+    int count = tbDeptMapper.update(dept);
+    result.setSuccess(count == 1);
+    result.setCode(result.isSuccess() ? 200 : 500);
+    result.setMessage(result.isSuccess() ? "修改部门成功" : "修改部门失败");
+    return result;
+  }
+
+  @Override
+  public BaseResult<List<DeptAndEmployeeList>> queryById(TbDept dept) throws Exception {
+    BaseResult<List<DeptAndEmployeeList>> result = new BaseResult<>();
+    logger.debug("参数：{}", dept);
+    List<DeptAndEmployeeList> list = tbDeptMapper.queryDeptAndEmployeeList(dept);
+    logger.debug("查询结果：{}", list);
+    result.setData(list);
+    result.setSuccess(true);
+    result.setCode(200);
+    return result;
+  }
+
 }
