@@ -3,7 +3,11 @@ package top.huhuiyu.template.maven.springboot2.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
+import top.huhuiyu.template.maven.springboot2.validate.TbDeptValidate;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,12 +21,16 @@ public class TbDept implements Serializable {
 
   private static final long serialVersionUID = -1638648482804363761L;
 
+  @NotNull(message = "部门编号必须填写", groups = {TbDeptValidate.Modify.class})
+  @Min(message = "部门编号不正确", value = 1, groups = {TbDeptValidate.Modify.class})
   @ApiModelProperty(value = "部门编号，主键", example = "1")
   @ApiParam(hidden = true)
   private Integer deptId;
+  @NotBlank(message = "部门名称必须填写", groups = {TbDeptValidate.Add.class, TbDeptValidate.Modify.class})
   @ApiModelProperty(value = "部门名称", example = "开发部")
   @ApiParam(hidden = true)
   private String deptName;
+  @NotBlank(message = "部门描述必须填写", groups = {TbDeptValidate.Add.class, TbDeptValidate.Modify.class})
   @ApiModelProperty(value = "部门描述", example = "写代码的部门")
   @ApiParam(hidden = true)
   private String deptInfo;

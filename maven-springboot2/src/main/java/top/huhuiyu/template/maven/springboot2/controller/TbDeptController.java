@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.huhuiyu.template.maven.springboot2.base.BaseResult;
 import top.huhuiyu.template.maven.springboot2.entity.DeptAndEmployeeList;
@@ -13,6 +14,7 @@ import top.huhuiyu.template.maven.springboot2.entity.TbDept;
 import top.huhuiyu.template.maven.springboot2.entity.TbEmployee;
 import top.huhuiyu.template.maven.springboot2.service.TbDeptService;
 import top.huhuiyu.template.maven.springboot2.service.TbEmployeeService;
+import top.huhuiyu.template.maven.springboot2.validate.TbDeptValidate;
 
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class TbDeptController {
   @ApiOperation(value = "添加部门", notes = "部门信息添加，本接口参数需要json格式提交")
   @ApiImplicitParams({@ApiImplicitParam(name = "deptName", value = "部门名称", dataTypeClass = String.class, required = true), @ApiImplicitParam(name = "deptInfo", value = "部门描述", dataTypeClass = String.class, required = true)})
   @PostMapping("/dept/add")
-  public BaseResult<TbDept> add(@RequestBody TbDept dept) throws Exception {
+  public BaseResult<TbDept> add(@Validated(TbDeptValidate.Add.class) @RequestBody TbDept dept) throws Exception {
     return tbDeptService.add(dept);
   }
 
@@ -59,7 +61,7 @@ public class TbDeptController {
   @ApiOperation(value = "修改部门", notes = "部门信息修改")
   @ApiImplicitParams({@ApiImplicitParam(name = "deptId", value = "部门编号", dataTypeClass = Integer.class, required = true), @ApiImplicitParam(name = "deptName", value = "部门名称", dataTypeClass = String.class, required = true), @ApiImplicitParam(name = "deptInfo", value = "部门描述", dataTypeClass = String.class, required = true)})
   @PostMapping("/dept/modify")
-  public BaseResult<String> modify(TbDept dept) throws Exception {
+  public BaseResult<String> modify(@Validated(TbDeptValidate.Modify.class) TbDept dept) throws Exception {
     return tbDeptService.modify(dept);
   }
 
