@@ -58,6 +58,12 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
+		<!-- freemarker模板 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+
 		<!--	springboot校验测试	-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

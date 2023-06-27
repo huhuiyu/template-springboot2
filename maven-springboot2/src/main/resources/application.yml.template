@@ -7,10 +7,20 @@ server:
       charset: UTF-8
       force: true
 spring:
+  freemarker:
+    # 模板页面路径配置
+    template-loader-path:
+      - classpath:/template/
   mvc:
     # apo文档兼容配置
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+    # 如果资源无法找到是否抛出异常，spring.web.resources.add-mappings配置为true则本配置无效
+    throw-exception-if-no-handler-found: true
+  # 是否允许静态资源映射，配置swagger文档必须开启
+  web:
+    resources:
+      add-mappings: true
   jmx:
     # 默认域
     default-domain: maven_springboot2
