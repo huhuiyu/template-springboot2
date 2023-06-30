@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import top.huhuiyu.template.maven.springboot2.util.DateUtils;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,7 +15,8 @@ import java.util.Date;
  * @author 胡辉煜
  */
 @ApiModel(value = "转换器演示数据类", description = "转换器演示数据类")
-public class ConverterInfo {
+public class ConverterInfo implements Serializable {
+  private static final long serialVersionUID = 1L;
   @ApiModelProperty(value = "整数", example = "111")
   @ApiParam(hidden = true)
   private Integer iv;

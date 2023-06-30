@@ -6,11 +6,11 @@ public class BaseResult<T> implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private int code=500;
-  private boolean success=false;
-  private String message="";
-
+  private int code = 500;
+  private boolean success = false;
+  private String message = "";
   private T data;
+  private String token;
 
   public BaseResult() {
   }
@@ -45,5 +45,13 @@ public class BaseResult<T> implements Serializable {
 
   public void setData(T data) {
     this.data = data;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
   }
 }
