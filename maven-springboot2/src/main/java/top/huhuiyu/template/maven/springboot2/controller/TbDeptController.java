@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import top.huhuiyu.template.maven.springboot2.aop.AnnoNoToken;
 import top.huhuiyu.template.maven.springboot2.base.BaseResult;
 import top.huhuiyu.template.maven.springboot2.entity.DeptAndEmployeeList;
 import top.huhuiyu.template.maven.springboot2.entity.TbDept;
@@ -18,6 +19,7 @@ import top.huhuiyu.template.maven.springboot2.validate.TbDeptValidate;
 
 import java.util.List;
 
+@AnnoNoToken
 @Api(tags = "部门和员工管理")
 @ApiSupport(order = 101)
 @RestController

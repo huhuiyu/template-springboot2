@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.huhuiyu.template.maven.springboot2.aop.AnnoNoToken;
 import top.huhuiyu.template.maven.springboot2.base.BaseResult;
 import top.huhuiyu.template.maven.springboot2.entity.ConverterInfo;
 import top.huhuiyu.template.maven.springboot2.entity.Info;
@@ -19,6 +20,7 @@ import top.huhuiyu.template.maven.springboot2.util.IpUtil;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@AnnoNoToken
 @Api(tags = "首页")
 @ApiSupport(order = 100)
 @RestController

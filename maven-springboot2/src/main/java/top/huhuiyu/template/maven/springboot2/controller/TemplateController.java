@@ -3,6 +3,7 @@ package top.huhuiyu.template.maven.springboot2.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import top.huhuiyu.template.maven.springboot2.aop.AnnoNoToken;
 import top.huhuiyu.template.maven.springboot2.entity.TbDept;
 import top.huhuiyu.template.maven.springboot2.service.TbDeptService;
 
@@ -14,6 +15,7 @@ public class TemplateController {
     this.tbDeptService = tbDeptService;
   }
 
+  @AnnoNoToken
   @GetMapping("/freemarker.html")
   public String freemark(TbDept dept, Model model) throws Exception {
     model.addAttribute("dept", dept);

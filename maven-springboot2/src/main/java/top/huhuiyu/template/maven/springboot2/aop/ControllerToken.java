@@ -3,6 +3,7 @@ package top.huhuiyu.template.maven.springboot2.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -33,9 +34,20 @@ public class ControllerToken implements BaseAop {
     this.tokenService = tokenService;
   }
 
-  @Around("controller()")
-  public Object around(ProceedingJoinPoint pjp) throws Throwable {
+  private String handleToken(ProceedingJoinPoint pjp) throws Exception {
     logger.debug("控制器切面token处理");
+    // 通过注解获取是否需要token信息
+    AnnoNoToken annoNoToken = pjp.getTarget().getClass().getAnnotation(AnnoNoToken.class);
+    if (annoNoToken != null) {
+      logger.debug("获取到AnnoNoToken信息的对象:{}", pjp.getTarget().getClass().getName());
+      return "";
+    }
+    MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
+    annoNoToken = methodSignature.getMethod().getAnnotation(AnnoNoToken.class);
+    if (annoNoToken != null) {
+      logger.debug("获取到AnnoNoToken信息的方法:{}", methodSignature.getMethod().getName());
+      return "";
+    }
     // 获取请求中的token信息
     ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     HttpServletRequest request = sra.getRequest();
@@ -49,6 +61,14 @@ public class ControllerToken implements BaseAop {
     logger.debug("客户拿到的token信息：{}", token);
     // 处理token信息
     token = tokenService.handleToken(token);
+    return token;
+  }
+
+  @Around("controller()")
+  public Object around(ProceedingJoinPoint pjp) throws Throwable {
+    logger.debug("控制器环绕切面");
+    // 处理token信息
+    String token = handleToken(pjp);
     // 执行控制器方法 =======================================================
     Object result = pjp.proceed();
     // 处理应答结果 =========================================================
