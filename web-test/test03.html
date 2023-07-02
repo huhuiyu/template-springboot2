@@ -11,16 +11,51 @@
   <meta name="description" content="胡辉煜-程序猿学习">
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
   <link rel="shortcut icon" href="https://media.huhuiyu.top/huhuiyu.top/hu-logo.jpg" type="image/jpeg">
+  <style>
+    #preChat {
+      height: 50vh;
+      margin: 1rem;
+      overflow-y: auto;
+      border: 1px solid #dcdcdc;
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
 
+    #preChat + div {
+      margin: 1rem;
+    }
+  </style>
 </head>
 
 <body>
 
-  <button id="btnOpenEcho">连接echo</button>
-  <button id="btnCloseEcho">关闭echo</button>
-  <input type="text" id="txtEcho" placeholder="echo消息">
-  <button id="btnEcho">发送消息</button>
-  <pre id="preEcho"></pre>
+  <div>
+    <h1>echo测试</h1>
+    <button id="btnOpenEcho">连接echo</button>
+    <button id="btnCloseEcho">关闭echo</button>
+    <input type="text" id="txtEcho" placeholder="echo消息">
+    <button id="btnEcho">发送消息</button>
+    <pre id="preEcho"></pre>
+  </div>
+  <div>
+    <h1>简易聊天室</h1>
+    <!-- 用户名 -->
+    <div id="divUser">
+      <input type="text" id="txtUser" placeholder="请输入你的姓名">
+      <button id="btnUser">确定</button>
+    </div>
+    <!-- 聊天 -->
+    <div id="divChat">
+      <pre id="preChat"></pre>
+      <div>
+        <input type="text" id="txtChat">
+        <button id="btnChat">发送</button>
+      </div>
+      
+    </div>
+  </div>
+
+
 
   <script src="js/test03.js" type="module"></script>
 </body>

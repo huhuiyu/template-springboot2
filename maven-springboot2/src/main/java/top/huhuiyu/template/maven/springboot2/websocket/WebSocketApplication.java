@@ -8,6 +8,7 @@ import top.huhuiyu.template.maven.springboot2.base.BaseWebSocketResult;
 import top.huhuiyu.template.maven.springboot2.service.WebSocketService;
 import top.huhuiyu.template.maven.springboot2.util.ApplicationUtil;
 import top.huhuiyu.template.maven.springboot2.util.JsonUtil;
+import top.huhuiyu.template.maven.springboot2.websocket.processor.ChatProcessor;
 import top.huhuiyu.template.maven.springboot2.websocket.processor.EchoProcessor;
 
 import javax.websocket.*;
@@ -49,6 +50,7 @@ public class WebSocketApplication {
 
   public WebSocketApplication() {
     PROCESSORM_MAP.put(APP_ECHO, new EchoProcessor());
+    PROCESSORM_MAP.put(APP_CHAT, new ChatProcessor());
   }
 
   /**
