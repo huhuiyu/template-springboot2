@@ -64,6 +64,12 @@
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
 
+		<!--	springboot websocket	-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+
 		<!--	springboot校验测试	-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

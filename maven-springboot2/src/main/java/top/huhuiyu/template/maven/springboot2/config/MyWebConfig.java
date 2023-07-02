@@ -1,10 +1,12 @@
 package top.huhuiyu.template.maven.springboot2.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import top.huhuiyu.template.maven.springboot2.converter.*;
 import top.huhuiyu.template.maven.springboot2.interceptor.AppInterceptor;
 
@@ -16,6 +18,16 @@ public class MyWebConfig implements WebMvcConfigurer {
 
   public MyWebConfig(AppInterceptor appInterceptor) {
     this.appInterceptor = appInterceptor;
+  }
+
+  /**
+   * WebSocket节点
+   *
+   * @return WebSocket节点
+   */
+  @Bean
+  public ServerEndpointExporter endpointExporter() {
+    return new ServerEndpointExporter();
   }
 
   @Override
