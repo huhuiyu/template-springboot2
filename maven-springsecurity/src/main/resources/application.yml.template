@@ -1,16 +1,12 @@
 server:
   # 端口号
-  port: 10100
+  port: 10101
   servlet:
     # 编码设置
     encoding:
       charset: UTF-8
       force: true
 spring:
-  freemarker:
-    # 模板页面路径配置
-    template-loader-path:
-      - classpath:/template/
   mvc:
     # api文档兼容配置
     pathmatch:
@@ -23,7 +19,7 @@ spring:
       add-mappings: true
   jmx:
     # 默认域
-    default-domain: maven_springboot2
+    default-domain: maven-springsecurity
   jackson:
     # 不输出null值属性
     default-property-inclusion: non-null
@@ -42,7 +38,7 @@ spring:
 # mybatis配置
 mybatis:
   # 使用类型别名的包
-  type-aliases-package: top.huhuiyu.template.maven.springboot2.entity
+  type-aliases-package: top.huhuiyu.template.maven.springsecurity.entity
   configuration:
     # 下划线转驼峰
     map-underscore-to-camel-case: true
