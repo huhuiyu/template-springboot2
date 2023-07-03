@@ -1,3 +1,4 @@
 # springboot2模板项目
 
-- [模板项目](./maven-springboot2/README.md)
+- [springboot2模板项目](./maven-springboot2/README.md)
+- [security模板项目](./maven-springsecurity/README.md)
