@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+				PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.huhuiyu.template.maven.springsecurity.dao.TbSecurityUserMapper">
+
+	<select id="queryByName" parameterType="TbSecurityUser">
+		select a.*,b.role_name 'role.role_name' ,b.role_info 'role.role_info'
+		from tb_security_user a
+		inner join tb_security_role b on a.rid = b.rid
+		where a.username = #{username}
+	</select>
+
+</mapper>
