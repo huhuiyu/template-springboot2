@@ -18,17 +18,15 @@ import java.io.PrintWriter;
 public class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
   private static Logger logger = LoggerFactory.getLogger(MyAuthenticationFailureHandler.class);
 
-  private final TokenManager tokenManager;
+  public MyAuthenticationFailureHandler() {
 
-  public MyAuthenticationFailureHandler(TokenManager tokenManager) {
-    this.tokenManager = tokenManager;
   }
 
   @Override
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
     logger.debug("认证失败：{}", exception.getMessage());
     BaseResult<String> result = BaseResult.getFailResult(exception.getMessage());
-    result.setToken(tokenManager.getToken());
+    result.setToken(null);
     response.setContentType("application/json;charset=utf-8");
     PrintWriter out = response.getWriter();
     try {

@@ -11,4 +11,11 @@
 		where a.username = #{username}
 	</select>
 
+	<select id="queryByUid" parameterType="TbSecurityUser">
+		select a.*,b.role_name 'role.role_name' ,b.role_info 'role.role_info'
+		from tb_security_user a
+		inner join tb_security_role b on a.rid = b.rid
+		where a.uid = #{uid}
+	</select>
+
 </mapper>

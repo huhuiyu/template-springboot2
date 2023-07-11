@@ -37,7 +37,7 @@ btnTest.addEventListener('click', () => {
 
 btnUserInfo.addEventListener('click', () => {
   ajax.get(
-    '/auth/userinfo',
+    '/auth/user/userinfo',
     {
       security_token: loadToken(),
     },

@@ -6,4 +6,7 @@ import top.huhuiyu.template.maven.springsecurity.entity.TbSecurityUser;
 @Mapper
 public interface TbSecurityUserMapper {
   TbSecurityUser queryByName(TbSecurityUser user) throws Exception;
+
+  TbSecurityUser queryByUid(TbSecurityUser user) throws Exception;
+
 }

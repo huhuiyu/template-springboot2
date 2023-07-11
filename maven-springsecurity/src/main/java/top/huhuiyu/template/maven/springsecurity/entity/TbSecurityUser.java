@@ -1,15 +1,11 @@
 package top.huhuiyu.template.maven.springsecurity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 public class TbSecurityUser implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -20,6 +16,7 @@ public class TbSecurityUser implements Serializable {
   @ApiModelProperty(value = "登录名", example = "user")
   @ApiParam(hidden = true)
   private String username;
+  @JsonIgnore
   @ApiModelProperty(value = "密码", example = "user")
   @ApiParam(hidden = true)
   private String password;
@@ -109,16 +106,5 @@ public class TbSecurityUser implements Serializable {
   @Override
   public String toString() {
     return "TbSecurityUser{" + "uid=" + uid + ", username='" + username + '\'' + ", password='" + password + '\'' + ", nickname='" + nickname + '\'' + ", rid=" + rid + ", enable='" + enable + '\'' + ", lastupdate=" + lastupdate + ", role=" + role + '}';
-  }
-
-  /**
-   * 转换用户信息为springsecurity格式
-   *
-   * @return springsecurity格式用户信息
-   */
-  public UserDetails getUserDetails() {
-    List<SimpleGrantedAuthority> list = Arrays.asList(new SimpleGrantedAuthority(this.role.getRoleName()));
-    UserDetails user = new User(this.getUsername(), this.getPassword(), list);
-    return user;
   }
 }

@@ -3,11 +3,15 @@ package top.huhuiyu.template.maven.springsecurity.security;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.Assert;
+import top.huhuiyu.template.maven.springsecurity.entity.TbSecurityUser;
 
 import java.util.Collection;
 
 public class MyAuthenticationToken extends AbstractAuthenticationToken {
+  private String token;
+  private TbSecurityUser user;
   private final Object principal;
+
 
   private Object credentials;
 
@@ -15,13 +19,15 @@ public class MyAuthenticationToken extends AbstractAuthenticationToken {
     super(null);
     this.principal = principal;
     this.credentials = credentials;
-    setAuthenticated(false);
+    super.setAuthenticated(false);
   }
 
-  public MyAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
+  public MyAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String token, TbSecurityUser user) {
     super(authorities);
     this.principal = principal;
     this.credentials = credentials;
+    this.token = token;
+    this.user = user;
     super.setAuthenticated(true);
   }
 
@@ -47,4 +53,11 @@ public class MyAuthenticationToken extends AbstractAuthenticationToken {
     this.credentials = null;
   }
 
+  public String getToken() {
+    return token;
+  }
+
+  public TbSecurityUser getUser() {
+    return user;
+  }
 }

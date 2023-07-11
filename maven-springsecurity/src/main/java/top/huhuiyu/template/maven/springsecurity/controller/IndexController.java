@@ -8,13 +8,15 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 import top.huhuiyu.template.maven.springsecurity.base.BaseResult;
 import top.huhuiyu.template.maven.springsecurity.dao.TbSecurityUserMapper;
-import top.huhuiyu.template.maven.springsecurity.security.TokenManager;
+import top.huhuiyu.template.maven.springsecurity.security.MyAuthenticationToken;
 import top.huhuiyu.template.maven.springsecurity.service.SecurityService;
 
 @Api(tags = "首页")
@@ -24,13 +26,10 @@ public class IndexController {
   private static Logger logger = LoggerFactory.getLogger(IndexController.class);
   private final SecurityService securityService;
   private final TbSecurityUserMapper tbSecurityUserMapper;
-  private final TokenManager tokenManager;
 
-
-  public IndexController(SecurityService securityService, TbSecurityUserMapper tbSecurityUserMapper, TokenManager tokenManager) {
+  public IndexController(SecurityService securityService, TbSecurityUserMapper tbSecurityUserMapper) {
     this.securityService = securityService;
     this.tbSecurityUserMapper = tbSecurityUserMapper;
-    this.tokenManager = tokenManager;
   }
 
   @ApiOperationSupport(order = 100)
@@ -47,13 +46,18 @@ public class IndexController {
     return BaseResult.getFailResult("需要登录");
   }
 
-  @GetMapping("/auth/userinfo")
+  @GetMapping("/auth/user/userinfo")
   public BaseResult<Object> userinfo() throws Exception {
-    BaseResult<Object> result = BaseResult.getSuccessResult("");
-    result.setToken(tokenManager.getToken());
-    result.setData(tokenManager.get(tokenManager.getToken()));
-    return result;
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication instanceof MyAuthenticationToken) {
+      BaseResult<Object> result = BaseResult.getSuccessResult("");
+      MyAuthenticationToken token = (MyAuthenticationToken) authentication;
+      result.setData(token.getUser());
+      result.setToken(token.getToken());
+      return result;
+    } else {
+      BaseResult<Object> result = BaseResult.getFailResult("需要登录");
+      return result;
+    }
   }
-
-
 }

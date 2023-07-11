@@ -52,6 +52,13 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!-- jwt -->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.3.0</version>
+		</dependency>
+
 		<!-- mysql驱动 -->
 		<dependency>
 			<groupId>com.mysql</groupId>

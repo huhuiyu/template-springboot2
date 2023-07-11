@@ -17,18 +17,14 @@ import java.io.PrintWriter;
 @Component
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
   private static Logger logger = LoggerFactory.getLogger(MyAuthenticationSuccessHandler.class);
-  private final TokenManager tokenManager;
-
-  public MyAuthenticationSuccessHandler(TokenManager tokenManager) {
-    this.tokenManager = tokenManager;
-  }
 
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
     logger.debug("认证成功");
     BaseResult<String> result = BaseResult.getSuccessResult("登录成功");
+    MyAuthenticationToken token = (MyAuthenticationToken) authentication;
     // 处理token信息
-    result.setToken(tokenManager.getToken());
+    result.setToken(token.getToken());
     response.setContentType("application/json;charset=utf-8");
     PrintWriter out = response.getWriter();
     try {

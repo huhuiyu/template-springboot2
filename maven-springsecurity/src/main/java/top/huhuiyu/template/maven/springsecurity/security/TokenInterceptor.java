@@ -18,18 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 public class TokenInterceptor implements HandlerInterceptor {
 
   private static final Logger log = LoggerFactory.getLogger(TokenInterceptor.class);
-  private final TokenManager tokenManager;
 
-  public TokenInterceptor(TokenManager tokenManager) {
-    this.tokenManager = tokenManager;
+  public TokenInterceptor() {
+
   }
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     // 处理token
     String token = request.getParameter("security_token");
-    token = tokenManager.checkToken(token);
-    tokenManager.setToken(token);
     log.debug("拦截器前置处理：{}，token信息：{}", handler, token);
     return true;
   }
