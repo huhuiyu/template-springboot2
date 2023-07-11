@@ -8,6 +8,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,13 @@ import top.huhuiyu.template.maven.springsecurity.dao.SystemMapper;
 import top.huhuiyu.template.maven.springsecurity.dao.TbSecurityUserMapper;
 import top.huhuiyu.template.maven.springsecurity.entity.MyUserDetails;
 import top.huhuiyu.template.maven.springsecurity.entity.TbSecurityUser;
+import top.huhuiyu.template.maven.springsecurity.security.MyAuthenticationToken;
 import top.huhuiyu.template.maven.springsecurity.service.SecurityService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-@Service
+@Service("securityService")
 @Transactional(rollbackFor = Exception.class)
 public class SecurityServiceImpl implements SecurityService {
   private static Logger logger = LoggerFactory.getLogger(SecurityService.class);
@@ -80,6 +83,21 @@ public class SecurityServiceImpl implements SecurityService {
     } catch (JWTVerificationException ex) {
       return null;
     }
+  }
+
+  @Override
+  public boolean checkAuth(Authentication authentication, HttpServletRequest request) throws Exception {
+    logger.debug("认证和请求信息:{},{},{}", authentication, request, authentication.getClass().getName());
+    MyAuthenticationToken token = (MyAuthenticationToken) authentication;
+    logger.debug("用户和地址信息：{},{},{}", token.getUser(), request.getRequestURI(), request.getPathInfo());
+    String url = request.getRequestURI().replaceFirst(request.getContextPath(), "");
+    if (url.startsWith("/auth/admin/") && !"admin".equals(token.getUser().getRole().getRoleName())) {
+      return false;
+    }
+    if (url.startsWith("/auth/user/") && !"user".equals(token.getUser().getRole().getRoleName())) {
+      return false;
+    }
+    return true;
   }
 
 }

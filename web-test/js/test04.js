@@ -8,6 +8,8 @@ let txtUser = document.getElementById('txtUser');
 let txtPassword = document.getElementById('txtPassword');
 let btnTest = document.getElementById('btnTest');
 let btnUserInfo = document.getElementById('btnUserInfo');
+let btnAdminInfo = document.getElementById('btnAdminInfo');
+
 let preResult = document.getElementById('preResult');
 
 function saveToken(data) {
@@ -38,6 +40,18 @@ btnTest.addEventListener('click', () => {
 btnUserInfo.addEventListener('click', () => {
   ajax.get(
     '/auth/user/userinfo',
+    {
+      security_token: loadToken(),
+    },
+    (data) => {
+      preResult.innerHTML = JSON.stringify(data);
+    }
+  );
+});
+
+btnAdminInfo.addEventListener('click', () => {
+  ajax.get(
+    '/auth/admin/userinfo',
     {
       security_token: loadToken(),
     },

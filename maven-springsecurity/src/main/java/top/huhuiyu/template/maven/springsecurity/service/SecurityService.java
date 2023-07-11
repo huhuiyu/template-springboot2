@@ -1,9 +1,12 @@
 package top.huhuiyu.template.maven.springsecurity.service;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import top.huhuiyu.template.maven.springsecurity.entity.TbSecurityUser;
+
+import javax.servlet.http.HttpServletRequest;
 
 public interface SecurityService extends UserDetailsService {
   /**
@@ -37,4 +40,14 @@ public interface SecurityService extends UserDetailsService {
    * @throws Exception 处理发生异常
    */
   TbSecurityUser parseToken(String token) throws Exception;
+
+  /**
+   * 校验url访问权限
+   *
+   * @param authentication 登录权限信息
+   * @param request        请求信息
+   * @return url访问权限
+   * @throws Exception 处理发生异常
+   */
+  boolean checkAuth(Authentication authentication, HttpServletRequest request) throws Exception;
 }

@@ -19,11 +19,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private final AuthenticationFailureHandler authenticationFailureHandler;
 
   private final AuthenticationSuccessHandler authenticationSuccessHandler;
+  private final MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+  private final MyAccessDeniedHandler myAccessDeniedHandler;
 
   private final SecurityService securityService;
 
-  public SecurityConfiguration(AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler, SecurityService securityService) {
+  public SecurityConfiguration(MyAccessDeniedHandler myAccessDeniedHandler, MyAuthenticationEntryPoint myAuthenticationEntryPoint, AuthenticationFailureHandler authenticationFailureHandler, AuthenticationSuccessHandler authenticationSuccessHandler, SecurityService securityService) {
     super();
+    this.myAccessDeniedHandler = myAccessDeniedHandler;
+    this.myAuthenticationEntryPoint = myAuthenticationEntryPoint;
     this.authenticationFailureHandler = authenticationFailureHandler;
     this.authenticationSuccessHandler = authenticationSuccessHandler;
     this.securityService = securityService;
@@ -61,15 +65,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // jwt权限拦截
     MyJwtFilter jwtFilter = new MyJwtFilter(securityService);
     http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-//    JwtSecurityConfigurer configurer = new JwtSecurityConfigurer(securityService);
-//    http.apply(configurer);
+    http.authorizeRequests().anyRequest().access("@securityService.checkAuth(authentication,request)");
     // 自定义用户认证
     MyAuthenticationProcessingFilter myAuthenticationProcessingFilter = new MyAuthenticationProcessingFilter();
     myAuthenticationProcessingFilter.setAuthenticationManager(super.authenticationManager());
     myAuthenticationProcessingFilter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler());
     myAuthenticationProcessingFilter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());
     http.addFilterBefore(myAuthenticationProcessingFilter, UsernamePasswordAuthenticationFilter.class);
+    http.anonymous().disable();
+    // 认证失败统一处理，myAuthenticationEntryPoint为没有登录信息错误处理，myAccessDeniedHandler为权限校验失败处理
+    http.exceptionHandling().authenticationEntryPoint(myAuthenticationEntryPoint).accessDeniedHandler(myAccessDeniedHandler);
   }
 
   @Override

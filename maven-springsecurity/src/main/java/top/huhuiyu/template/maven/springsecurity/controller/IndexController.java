@@ -49,15 +49,18 @@ public class IndexController {
   @GetMapping("/auth/user/userinfo")
   public BaseResult<Object> userinfo() throws Exception {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication instanceof MyAuthenticationToken) {
-      BaseResult<Object> result = BaseResult.getSuccessResult("");
-      MyAuthenticationToken token = (MyAuthenticationToken) authentication;
-      result.setData(token.getUser());
-      result.setToken(token.getToken());
-      return result;
-    } else {
-      BaseResult<Object> result = BaseResult.getFailResult("需要登录");
-      return result;
-    }
+    BaseResult<Object> result = BaseResult.getSuccessResult("");
+    MyAuthenticationToken token = (MyAuthenticationToken) authentication;
+    result.setData(token.getUser());
+    return result;
+  }
+
+  @GetMapping("/auth/admin/userinfo")
+  public BaseResult<Object> admininfo() throws Exception {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    BaseResult<Object> result = BaseResult.getSuccessResult("");
+    MyAuthenticationToken token = (MyAuthenticationToken) authentication;
+    result.setData(token.getUser());
+    return result;
   }
 }
