@@ -13,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 import top.huhuiyu.template.maven.springsecurity.base.BaseResult;
 import top.huhuiyu.template.maven.springsecurity.dao.TbSecurityUserMapper;
 import top.huhuiyu.template.maven.springsecurity.security.MyAuthenticationToken;
@@ -40,12 +39,8 @@ public class IndexController {
     return StringUtils.hasText(echo) ? BaseResult.getSuccessResult(echo) : BaseResult.getFailResult("缺少echo参数");
   }
 
-  @ApiIgnore
-  @GetMapping("/login.error")
-  public BaseResult<String> login_page(String echo) throws Exception {
-    return BaseResult.getFailResult("需要登录");
-  }
-
+  @ApiOperationSupport(order = 101)
+  @ApiOperation(value = "获取登录用户信息", notes = "获取登录用户信息，需要user角色登录")
   @GetMapping("/auth/user/userinfo")
   public BaseResult<Object> userinfo() throws Exception {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -55,6 +50,8 @@ public class IndexController {
     return result;
   }
 
+  @ApiOperationSupport(order = 102)
+  @ApiOperation(value = "获取登录用户信息", notes = "获取登录用户信息，需要admin角色登录")
   @GetMapping("/auth/admin/userinfo")
   public BaseResult<Object> admininfo() throws Exception {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

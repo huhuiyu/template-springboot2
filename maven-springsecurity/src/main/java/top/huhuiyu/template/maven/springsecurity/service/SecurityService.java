@@ -12,7 +12,7 @@ public interface SecurityService extends UserDetailsService {
   /**
    * token过期时间
    */
-  int TOKEN_EXPIRE_TIME = 1 * 60 * 1000;
+  int TOKEN_EXPIRE_TIME = 5 * 60 * 1000;
 
   /**
    * 加载用户信息
