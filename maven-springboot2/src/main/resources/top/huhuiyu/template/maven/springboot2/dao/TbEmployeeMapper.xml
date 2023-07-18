@@ -4,6 +4,21 @@
 				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.huhuiyu.template.maven.springboot2.dao.TbEmployeeMapper">
 
+	<select id="queryAll_COUNT" parameterType="TbEmployee" resultType="java.lang.Long">
+		select count(*) from tb_employee e
+		<where>
+			<if test="deptId != null and deptId > 0">
+				and e.dept_id = #{deptId}
+			</if>
+			<if test="employeeName != null and employeeName.trim() != ''.toString()">
+				and e.employee_name like #{employeeName}
+			</if>
+			<if test="phone != null and phone.trim() != ''.toString()">
+				and e.phone like #{phone}
+			</if>
+		</where>
+	</select>
+
 	<select id="queryAll" parameterType="TbEmployee">
 		select e.*,d.dept_name 'dept.deptName'
 		from tb_employee e

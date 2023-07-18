@@ -53,3 +53,7 @@ springfox:
       enabled: true
 knife4j:
   enable: true
+# 分页插件配置
+pagehelper:
+  # 参数必须在合理范围
+  reasonable: true

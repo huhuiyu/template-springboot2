@@ -9,7 +9,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.huhuiyu.template.maven.springboot2.aop.AnnoNoToken;
+import top.huhuiyu.template.maven.springboot2.base.BasePageResult;
 import top.huhuiyu.template.maven.springboot2.base.BaseResult;
+import top.huhuiyu.template.maven.springboot2.base.Page;
 import top.huhuiyu.template.maven.springboot2.entity.DeptAndEmployeeList;
 import top.huhuiyu.template.maven.springboot2.entity.TbDept;
 import top.huhuiyu.template.maven.springboot2.entity.TbEmployee;
@@ -77,10 +79,10 @@ public class TbDeptController {
 
   @ApiOperationSupport(order = 30)
   @ApiOperation(value = "员工查询", notes = "员工信息查询")
-  @ApiImplicitParams({@ApiImplicitParam(name = "deptId", value = "所属部门", dataTypeClass = Integer.class), @ApiImplicitParam(name = "employeeName", value = "员工名称模糊查询", dataTypeClass = String.class), @ApiImplicitParam(name = "phone", value = "员工电话模糊查询", dataTypeClass = String.class)})
+  @ApiImplicitParams({@ApiImplicitParam(name = "deptId", value = "所属部门", dataTypeClass = Integer.class), @ApiImplicitParam(name = "employeeName", value = "员工名称模糊查询", dataTypeClass = String.class), @ApiImplicitParam(name = "phone", value = "员工电话模糊查询", dataTypeClass = String.class), @ApiImplicitParam(name = "pageSize", value = "分页大小", dataTypeClass = Integer.class, required = true), @ApiImplicitParam(name = "pageNumber", value = "当前页码", dataTypeClass = Integer.class, required = true)})
   @PostMapping("/employee/queryAll")
-  public BaseResult<List<TbEmployee>> queryAll(TbEmployee employee) throws Exception {
-    return tbEmployeeService.queryAll(employee);
+  public BasePageResult<List<TbEmployee>> queryAll(TbEmployee employee, Page page) throws Exception {
+    return tbEmployeeService.queryAll(employee, page);
   }
 
   @ApiOperationSupport(order = 31)

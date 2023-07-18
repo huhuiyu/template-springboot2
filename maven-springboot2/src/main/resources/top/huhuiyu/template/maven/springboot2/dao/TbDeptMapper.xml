@@ -15,7 +15,7 @@
 	<resultMap id="deptAndEmployeeMap" type="DeptAndEmployeeList">
 		<collection property="employees" javaType="java.util.ArrayList" ofType="DeptAndEmployeeList"
 								select="top.huhuiyu.template.maven.springboot2.dao.TbEmployeeMapper.queryEmployeeByDeptId"
-								column="{deptId=dept_Id}"/>
+								column="{deptId=dept_id}"/>
 	</resultMap>
 
 	<select id="queryDeptAndEmployeeList" parameterType="TbDept" resultMap="deptAndEmployeeMap">

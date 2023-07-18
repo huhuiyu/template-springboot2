@@ -2,6 +2,7 @@ package top.huhuiyu.template.maven.springboot2.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.huhuiyu.template.maven.springboot2.base.BaseResult;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -90,6 +92,40 @@ public class AppExceptionHandler {
     result.setCode(502);
     result.setMessage(sb.toString());
     logger.debug("校验异常：{}", ex.getMessage());
+    return result;
+  }
+
+  /**
+   * 数据库操作异常处理
+   *
+   * @param ex 异常信息
+   * @return 标准应答结果
+   */
+  @ExceptionHandler({DataAccessException.class})
+  @ResponseBody
+  public BaseResult<String> handler(DataAccessException ex) {
+    logger.error("数据库操作异常", ex);
+    BaseResult<String> result = new BaseResult<>();
+    result.setSuccess(false);
+    result.setCode(500);
+    result.setMessage("数据信息异常");
+    return result;
+  }
+
+  /**
+   * 数据库异常处理
+   *
+   * @param ex 异常信息
+   * @return 标准应答结果
+   */
+  @ExceptionHandler({SQLException.class})
+  @ResponseBody
+  public BaseResult<String> handler(SQLException ex) {
+    logger.error("sql异常", ex);
+    BaseResult<String> result = new BaseResult<>();
+    result.setSuccess(false);
+    result.setCode(500);
+    result.setMessage("数据处理发生异常");
     return result;
   }
 
