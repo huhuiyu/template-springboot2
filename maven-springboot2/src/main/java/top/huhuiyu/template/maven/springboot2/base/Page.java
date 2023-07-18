@@ -11,6 +11,7 @@ import java.io.Serializable;
  *
  * @author 胡辉煜
  */
+
 public class Page implements Serializable {
   private static final long serialVersionUID = 1L;
   public static final int PAGE_SIZE = 10;
@@ -25,10 +26,10 @@ public class Page implements Serializable {
   @ApiModelProperty(value = "当前页码", example = "1")
   @ApiParam(hidden = true)
   private int pageNumber = PAGE_NUMBER_MIN;
-  @ApiModelProperty(value = "分页总数")
+  @ApiModelProperty(value = "分页总数", example = "24")
   @ApiParam(hidden = true)
   private int pageCount;
-  @ApiModelProperty(value = "记录总数")
+  @ApiModelProperty(value = "记录总数", example = "234")
   @ApiParam(hidden = true)
   private long total;
 
