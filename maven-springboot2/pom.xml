@@ -98,13 +98,6 @@
 			<version>1.4.7</version>
 		</dependency>
 
-		<!-- api文档工具 -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-
 		<!-- api文档工具增强 -->
 		<dependency>
 			<groupId>com.github.xiaoymin</groupId>
