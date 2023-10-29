@@ -11,6 +11,7 @@ import top.huhuiyu.springboot2.entity.TbAuthUser;
 import top.huhuiyu.springboot2.service.AuthService;
 import top.huhuiyu.springboot2.utils.JwtUtils;
 import top.huhuiyu.springboot2.utils.Utils;
+import top.huhuiyu.springboot2.vo.UserVO;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +22,20 @@ public class AuthServiceImpl implements AuthService {
   private final TbAuthRoleDAO tbAuthRoleDAO;
 
   @Override
-  public BaseResult login(TbAuthUser user) {
+  public UserVO queryUserById(Integer userId) {
+    TbAuthUser tbAuthUser = tbAuthUserDAO.queryByKey(userId);
+    if (tbAuthUser == null) {
+      return null;
+    }
+    UserVO userVO = new UserVO();
+    userVO.setTbAuthUser(tbAuthUser);
+    userVO.setTbAuthUserInfo(tbAuthUserInfoDAO.queryByKey(userId));
+    userVO.setTbAuthRole(tbAuthRoleDAO.queryByKey(tbAuthUser.getRoleId()));
+    return userVO;
+  }
 
+  @Override
+  public BaseResult login(TbAuthUser user) {
     // 通过姓名查询用户是否存在
     TbAuthUser check = tbAuthUserDAO.queryByName(user);
     if (check == null) {

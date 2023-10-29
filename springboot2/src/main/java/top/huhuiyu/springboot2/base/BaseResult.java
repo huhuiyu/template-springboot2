@@ -18,9 +18,13 @@ public class BaseResult {
   }
 
   public static BaseResult fail(String message) {
+    return BaseResult.fail(500, message);
+  }
+
+  public static BaseResult fail(int code, String message) {
     BaseResult result = new BaseResult();
     result.setSuccess(false);
-    result.setCode(500);
+    result.setCode(code);
     result.setMessage(message);
     return result;
   }

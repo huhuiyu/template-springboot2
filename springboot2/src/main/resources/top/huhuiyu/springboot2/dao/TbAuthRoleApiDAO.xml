@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.huhuiyu.springboot2.dao.TbAuthRoleApiDAO">
+
+    <select id="queryByUser" parameterType="TbAuthRoleApi" resultType="TbAuthRoleApi">
+        <!-- 为了节约查询参数的处理，这里的roleId是传入的用户id，用子查询转换成用户对应的role -->
+        select * from tb_auth_role_api
+        where api_id = #{apiId} and role_id = (
+            select role_id from tb_auth_user where user_id = #{roleId}
+        )
+    </select>
+
+</mapper>

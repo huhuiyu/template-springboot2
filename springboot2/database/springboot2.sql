@@ -22,7 +22,7 @@ drop table if exists tb_auth_api;
 
 create table tb_auth_api
 (
-  api_id integer primary key not null comment 'api编号' ,
+  api_id integer auto_increment primary key not null comment 'api编号' ,
   url varchar(255) not null comment 'api的url地址',
   method varchar(10) not null comment '请求的方式',
   info varchar(200) not null comment 'api描述信息',
@@ -62,7 +62,7 @@ create table tb_auth_user
 
 -- 默认用户信息
 insert into tb_auth_user(username,password,salt,role_id) values('admin','d6d93e25dfd2e57854e73e25383008f4','1nexns',1);
-insert into tb_auth_user(username,password,salt,role_id) values('user','bf20a03736e37345c6547ef9876c9b14','d66v76',1);
+insert into tb_auth_user(username,password,salt,role_id) values('user','bf20a03736e37345c6547ef9876c9b14','d66v76',2);
 
 select * from tb_auth_user;
 

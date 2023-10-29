@@ -1,8 +1,11 @@
-package top.huhuiyu.springboot2.dao;
+package top.huhuiyu.springboot2.entity;
+
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
 public class TbAuthApi implements Serializable {
   private static final long serialVersionUID = 1L;
   private Integer apiId;

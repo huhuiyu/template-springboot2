@@ -1,6 +1,7 @@
 package top.huhuiyu.springboot2.utils;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+@Slf4j
 public class IpUtils {
   /**
    * ip信息最小长度
@@ -30,9 +32,8 @@ public class IpUtils {
    * 获取客户端ip地址
    *
    * @return 客户端ip地址
-   * @throws Exception 处理发生异常
    */
-  public static String getIpAddress() throws Exception {
+  public static String getIpAddress() {
     ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     if (servletRequestAttributes == null) {
       return getLocalIp();
@@ -46,9 +47,8 @@ public class IpUtils {
    *
    * @param request 客户端请求
    * @return 客户端ip地址
-   * @throws Exception 处理发生异常
    */
-  public static String getIpAddr(HttpServletRequest request) throws Exception {
+  public static String getIpAddr(HttpServletRequest request) {
     if (request == null) {
       return getLocalIp();
     }
@@ -65,12 +65,7 @@ public class IpUtils {
         ipAddress = request.getRemoteAddr();
         if (LOCAL_IP.equals(ipAddress)) {
           // 根据网卡取本机配置的IP
-          InetAddress inet = null;
-          try {
-            inet = InetAddress.getLocalHost();
-          } catch (UnknownHostException e) {
-            e.printStackTrace();
-          }
+          InetAddress inet = InetAddress.getLocalHost();
           ipAddress = inet.getHostAddress();
         }
       }
@@ -95,9 +90,9 @@ public class IpUtils {
     InetAddress inet = null;
     try {
       inet = InetAddress.getLocalHost();
+      return inet.getHostAddress();
     } catch (UnknownHostException e) {
-      e.printStackTrace();
+      return "";
     }
-    return inet.getHostAddress();
   }
 }

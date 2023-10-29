@@ -3,6 +3,7 @@ package top.huhuiyu.springboot2.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -20,6 +21,9 @@ public class JwtUtils {
   }
 
   public static Integer parseUserIdToken(String token) {
+    if (!StringUtils.hasText(token)) {
+      return null;
+    }
     DecodedJWT decodedJWT = JWT.decode(token);
     Date expiresAt = decodedJWT.getExpiresAt();
     Date now = new Date();
