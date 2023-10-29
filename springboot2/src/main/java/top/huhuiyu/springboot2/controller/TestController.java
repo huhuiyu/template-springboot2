@@ -3,6 +3,7 @@ package top.huhuiyu.springboot2.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.huhuiyu.springboot2.base.BaseDataResult;
@@ -27,5 +28,11 @@ public class TestController {
   @GetMapping("/admin/auth")
   public BaseDataResult<UserVO> adminAuth() {
     return BaseDataResult.ok("", authService.queryUserById(authInfoThreadLocal.get().getUserId()).toViewData());
+  }
+
+  @GetMapping("/auth/{info}")
+  public BaseDataResult<UserVO> auth(@PathVariable("info") String info) {
+    UserVO userVO = authService.queryUserById(authInfoThreadLocal.get().getUserId()).toViewData();
+    return BaseDataResult.ok(info, userVO);
   }
 }
