@@ -1,0 +1,24 @@
+server:
+  port: 12010
+# spring配置json应答中日期返回为时间戳格式
+spring:
+  jackson:
+    default-property-inclusion: non-null
+    serialization:
+      write_dates_as_timestamps: true
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.huhuiyu.top:3306/db_student?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2b8
+    username: 数据库用户名
+    password: 密码
+    hikari:
+      connection-test-query: select 1
+      max-lifetime: 60000
+# mybatis配置
+mybatis:
+  # 使用类型别名的包
+  type-aliases-package: top.huhuiyu.springboot2.entity
+  configuration:
+    # 下划线转驼峰
+    map-underscore-to-camel-case: true
